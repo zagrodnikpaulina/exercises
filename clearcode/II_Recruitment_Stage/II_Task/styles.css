@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+}
+
+.parent-container {
+    background-color:rgba(253, 235, 233, 0.6);
+    max-width: 1500px;
+    min-width: 332px; /* child.container min-width + 2*16px */
+    margin: auto;
+    padding: 8px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.child-container {
+    border: 1.5px solid;
+    border-radius: 2px;
+    margin: 8px;
+    padding: 5px;
+    height: auto;
+    min-width: 300px;
+    flex: 1 1 300px;
+    font-size: 12px;
+}
+
+.orange {
+    background-color:rgba(254, 237, 221, 1);
+    border-color: rgba(197, 147, 115, 0.4);
+}
+
+.blue {
+    background-color: rgba(232, 246, 255, 1);
+    border-color: rgba(105, 129, 165, 0.4);
+}
+
