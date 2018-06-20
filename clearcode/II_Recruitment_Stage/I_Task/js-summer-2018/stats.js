@@ -1,74 +1,73 @@
+const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-// //definicja funkcji 
-// const getAverage = (array) => {
 
-//     console.log(array[0]);
-//     console.log(array[0].date);
-//     console.log(array[0].visits);
-//     let testDate =  new Date('2018-01-01');
-//     // let obj = {testDate: "test"}
-//     // console.log(obj)
+const getAverage = (series, averageVisitsPerDay) => {
+  
+  if (averageVisitsPerDay === true) {
+    let average;
+    let result = {};
+    for (let i = 0; i < weekDays.length; i++) {
+      let selectedDays = getSelectedDays(weekDays[i], series);
+      average = calculateAverageVisits(selectedDays);
+      let key = weekDays[i];
+      let value = getObject(average);
+      result[key] = value;
+    }
+    return result;
+  }
 
-//     let testValue = 9;
-//     let testObject = {averageVisits: testValue }
-//     // console.log(testObject);
+  else {
+    let average = calculateAverageVisits(series);
+    let result = getObject(average); 
+    return result;
+  }
 
-//     return testObject;
-// }; 
+}; 
 
-let oneWeek = [
-  { date: new Date('2018-01-01'), visits: 32 },
-  { date: new Date('2018-01-02'), visits: 82 },
-  { date: new Date('2018-01-03'), visits: 74 },
-  { date: new Date('2018-01-04'), visits: 35 },
-  { date: new Date('2018-01-05'), visits: 54 },
-  { date: new Date('2018-01-06'), visits: 64 },
-  { date: new Date('2018-01-07'), visits: 44 },
-];
 
-function getAverage(array) {
+
+const getSelectedDays = (dayName, series) => {
+  let selectedDays = [];
+  for (let i = 0; i < series.length; i++) {
+    if (dayName === getDayName(series[i].date)) {
+      selectedDays.push(series[i]);
+    }
+  }
+  return selectedDays;
+}
+
+
+
+const getDayName = (date) => {
+  let dayNumber = date.getDay();
+  let dayName = toDayName(dayNumber);
+  return dayName;
+}
+
+
+
+const calculateAverageVisits = (series) => {
   let total = 0;
-  for (let i = 0; i < array.length; i++) {
-    total += array[i].visits;
+  for (let i = 0; i < series.length; i++) {
+    total += series[i].visits;
   }
-  let average = total / array.length;
+  let average = total / series.length;
+  return average;
+}
 
-  let averageObj = {
-    "averageVisits": average,
-  }
 
-  console.log(averageObj);
+
+const getObject = (average) => {
+  let averageObj =
+    {
+      "averageVisits": average,
+    };
   return averageObj;
-
 }
 
-getAverage(oneWeek);
 
 
-// function getAverageVisitsPerDay(array, wantAverageVisitsPerDay) {
-//   if (wantAverageVisitsPerDay == true) {
-//     let averageVisitsPerDay = {
-
-//     }
-//   }
-// }
-
-
-
-// spróbuj odniesc sie do tej funkcji w getAverage, zeby dostac usrednione dane z kazdego dnia (jako jeden duzy obiekt, w ktorym znajduja sie mniejsze)
-function getDayName(array) {
-  for (let i = 0; i < array.length; i++) {
-    let date = array[i].date;
-    let dayNumber = date.getDay();
-    let dayName = toDayName(dayNumber);
-    console.log(dayName);
-  }
-}
-
-getDayName(oneWeek);
-
-
-function toDayName(dayNumber) {
+const toDayName = (dayNumber) => {
   let text;
   switch (dayNumber) {
     case 0:
@@ -98,11 +97,4 @@ function toDayName(dayNumber) {
 
 
 
-
-
-
-
-
-
-
-// module.exports = getAverage;
+module.exports = getAverage;
